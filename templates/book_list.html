@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_styles.css' %}">
+    <title>Kitoblar Ro'yxati</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+            background-color: #007BFF;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+        .content {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .book-list {
+            list-style: none;
+            padding: 0;
+        }
+        .book-list li {
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #4CAF50;
+            border-radius: 4px;
+        }
+        .book-list li strong {
+            font-size: 1.2rem;
+        }
+        .book-list a {
+            margin-top: 10px;
+            display: inline-block;
+            background-color: #FF5733;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        .book-list a:hover {
+            background-color: #c0392b;
+        }
+        .book-list .update {
+            background-color: #FFC107;
+        }
+        .book-list .update:hover {
+            background-color: #e67e22;
+        }
+        .book-list .delete {
+            background-color: #e74c3c;
+        }
+        .book-list .delete:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kitoblar Ro'yxati</h1>
+    </header>
+
+    <div class="content">
+        <a href="{% url 'crud:create_book' %}">Yangi kitob qo'shish</a>
+        <ul class="book-list">
+            {% for book in books %}
+                <li>
+                    <strong>{{ book.title }}</strong> - {{ book.author }} - {{ book.published_date }}
+                    <div>
+                        <a href="{% url 'crud:update_book' book.pk %}" class="update">Yangilash</a>
+                        <a href="{% url 'crud:delete_book' book.pk %}" class="delete">O'chirish</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
+
